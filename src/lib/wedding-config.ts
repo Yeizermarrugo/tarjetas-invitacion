@@ -6,9 +6,9 @@ export const weddingConfig = {
   date: "2026-12-10",
   displayDate: "10 de diciembre de 2026",
   story: "Elegimos caminar juntos y queremos celebrar el comienzo de este nuevo capítulo rodeados de las personas que hacen nuestra historia más bonita.",
-  arrivalTime: "16:00",
+  arrivalTime: "15:30",
   ceremony: {
-    time: "17:00",
+    time: "16:30",
     endTime: "18:00",
     venue: "Finca Villa Fe",
     address: "Arjona, Bolívar",
