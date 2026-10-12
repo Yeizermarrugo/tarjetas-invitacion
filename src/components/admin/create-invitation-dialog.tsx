@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { TransportFields } from "./transport-fields";
+import { whatsappShareUrl } from "@/lib/invite-message";
 import {
   Dialog,
   DialogContent,
@@ -15,7 +16,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const initialState: { error: string; slug?: string } = { error: "" };
+const initialState: {
+  error: string;
+  slug?: string;
+  guest?: { guestName1: string; guestName2: string | null; seats: number };
+} = { error: "" };
 
 export function CreateInvitationDialog() {
   const [open, setOpen] = useState(false);
@@ -59,6 +64,17 @@ export function CreateInvitationDialog() {
                 Copiar
               </Button>
             </div>
+            {state.guest && (
+              <Button
+                type="button"
+                className="w-full bg-[#25D366] text-white hover:bg-[#1ebe5b]"
+                onClick={() =>
+                  window.open(whatsappShareUrl(state.guest!, window.location.origin + link), "_blank", "noopener,noreferrer")
+                }
+              >
+                Enviar por WhatsApp
+              </Button>
+            )}
             <Button
               type="button"
               className="w-full"

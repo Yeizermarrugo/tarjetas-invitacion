@@ -76,16 +76,17 @@ export async function createInvitationAction(
     slug = generateSlug();
   }
 
+  const guestName2 = seats === 2 && guestName2Raw ? guestName2Raw : null;
   await db.insert(invitations).values({
     slug,
     guestName1,
-    guestName2: seats === 2 && guestName2Raw ? guestName2Raw : null,
+    guestName2,
     seats,
     message: message || null,
     ...readTransport(formData),
   });
 
-  return { error: "", slug };
+  return { error: "", slug, guest: { guestName1, guestName2, seats } };
 }
 
 export async function deleteInvitationAction(id: number) {

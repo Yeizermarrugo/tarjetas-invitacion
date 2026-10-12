@@ -21,9 +21,21 @@ const script = Great_Vibes({
   weight: "400",
 });
 
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "Nuestra boda",
-  description: "Invitación digital de boda",
+  metadataBase: new URL(siteUrl),
+  title: "Yeizer & Diana · Nuestra boda",
+  description: "10 de diciembre de 2026 · Finca Villa Fe, Arjona (Bolívar). ¡Te esperamos!",
+  openGraph: {
+    type: "website",
+    locale: "es_CO",
+    siteName: "Yeizer & Diana",
+    images: [{ url: "/images/og-invitation.jpg", width: 720, height: 1280, alt: "Sobre de invitación de boda de Yeizer y Diana" }],
+  },
+  twitter: { card: "summary_large_image", images: ["/images/og-invitation.jpg"] },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

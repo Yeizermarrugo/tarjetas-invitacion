@@ -17,16 +17,43 @@ import { Countdown } from "@/components/wedding/countdown";
 import { getDb } from "@/db";
 import { invitations } from "@/db/schema";
 import { formatDeadline, isRsvpClosed } from "@/lib/rsvp-deadline";
+import { guestNames } from "@/lib/invite-message";
 import { weddingConfig } from "@/lib/wedding-config";
+import { cache } from "react";
+import type { Metadata } from "next";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-function guestNames(guestName1: string, guestName2: string | null, seats: number) {
-  if (guestName2) return `${guestName1} y ${guestName2}`;
-  if (seats === 2) return `${guestName1} y acompañante`;
-  return guestName1;
+const getInvitation = cache(async (slug: string) =>
+  getDb().query.invitations.findFirst({ where: eq(invitations.slug, slug) })
+);
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const invitation = await getInvitation(slug);
+  if (!invitation) return {};
+
+  const { partner1, partner2 } = weddingConfig.couple;
+  const title = `${partner1} & ${partner2} · Invitación para ${guestNames(invitation)}`;
+  const description = `${weddingConfig.displayDate} · ${weddingConfig.ceremony.venue}, ${weddingConfig.ceremony.address}. Abre tu invitación y confírmanos tu asistencia.`;
+
+  return {
+    title,
+    description,
+    // openGraph del hijo reemplaza al del layout: se repite la imagen.
+    openGraph: {
+      title,
+      description,
+      url: `/i/${slug}`,
+      type: "website",
+      locale: "es_CO",
+      siteName: `${partner1} & ${partner2}`,
+      images: [{ url: "/images/og-invitation.jpg", width: 720, height: 1280, alt: "Sobre de invitación de boda" }],
+    },
+    robots: { index: false, follow: false },
+  };
 }
 
 function greeting(guestName1: string, guestName2: string | null, seats: number) {
@@ -41,10 +68,7 @@ export default async function InvitationPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const db = getDb();
-  const invitation = await db.query.invitations.findFirst({
-    where: eq(invitations.slug, slug),
-  });
+  const invitation = await getInvitation(slug);
 
   if (!invitation) notFound();
   if (invitation.rsvpStatus === "declined") {
@@ -120,7 +144,7 @@ export default async function InvitationPage({
 
           <ScrollReveal id="ceremonia">
             <DateVenueCard
-              guestNames={guestNames(invitation.guestName1, invitation.guestName2, invitation.seats)}
+              guestNames={guestNames(invitation)}
               date={date}
               arrivalTime={arrivalTime}
               ceremony={ceremony}

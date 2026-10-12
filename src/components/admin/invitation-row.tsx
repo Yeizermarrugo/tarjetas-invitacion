@@ -8,6 +8,7 @@ import { deleteInvitationAction } from "@/app/admin/actions";
 import { EditInvitationDialog } from "./edit-invitation-dialog";
 import { initialsOf, colorFor } from "@/lib/avatar-color";
 import type { Invitation } from "@/db/schema";
+import { whatsappShareUrl } from "@/lib/invite-message";
 
 const statusLabel: Record<Invitation["rsvpStatus"], string> = {
   pending: "Pendiente",
@@ -37,6 +38,11 @@ export function InvitationRow({ invitation }: { invitation: Invitation }) {
   function copyLink() {
     const url = `${window.location.origin}/i/${invitation.slug}`;
     navigator.clipboard.writeText(url);
+  }
+
+  function shareWhatsapp() {
+    const url = `${window.location.origin}/i/${invitation.slug}`;
+    window.open(whatsappShareUrl(invitation, url), "_blank", "noopener,noreferrer");
   }
 
   function handleDelete() {
@@ -79,6 +85,9 @@ export function InvitationRow({ invitation }: { invitation: Invitation }) {
       </TableCell>
       <TableCell className="text-right">
         <div className="flex justify-end gap-2">
+          <Button size="sm" onClick={shareWhatsapp} className="bg-[#25D366] text-white hover:bg-[#1ebe5b]">
+            WhatsApp
+          </Button>
           <Button variant="outline" size="sm" onClick={copyLink}>
             Copiar
           </Button>
