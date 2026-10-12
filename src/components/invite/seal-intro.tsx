@@ -10,6 +10,7 @@ const OPEN_AT_SECONDS = 4.9;
 
 export function SealIntro({ children }: { partner1: string; partner2: string; children: React.ReactNode }) {
   const [state, setState] = useState<InvitationState>("closed");
+  const [videoVisible, setVideoVisible] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const fallbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduceMotion = useReducedMotion();
@@ -33,12 +34,23 @@ export function SealIntro({ children }: { partner1: string; partner2: string; ch
       return;
     }
 
-    video.currentTime = 0;
+    if (video.currentTime !== 0) video.currentTime = 0;
     try {
       await video.play();
       fallbackTimer.current = setTimeout(() => setState("opened"), (OPEN_AT_SECONDS + 1) * 1000);
     } catch {
       setState("opened");
+    }
+  }
+
+  // En celular el video no se precarga: al dar play el navegador oculta el poster antes de tener
+  // el primer cuadro y se ve un parpadeo. El poster queda como <img> debajo y el video solo se
+  // muestra cuando ya pintó su primer cuadro.
+  function revealVideo(video: HTMLVideoElement) {
+    if ("requestVideoFrameCallback" in video) {
+      video.requestVideoFrameCallback(() => setVideoVisible(true));
+    } else {
+      setVideoVisible(true);
     }
   }
 
@@ -65,16 +77,18 @@ export function SealIntro({ children }: { partner1: string; partner2: string; ch
           >
             <div aria-hidden className="cinematic-ambient" />
             <div className="cinematic-frame">
+              {/* eslint-disable-next-line @next/next/no-img-element -- mismo archivo que el primer cuadro del video, sin optimizar */}
+              <img src="/images/invitation-poster.jpg" alt="" aria-hidden className="cinematic-video absolute inset-0" fetchPriority="high" />
               <video
                 ref={videoRef}
-                className="cinematic-video"
-                poster="/images/invitation-poster.jpg"
+                className={`cinematic-video relative transition-opacity duration-150 ${videoVisible ? "opacity-100" : "opacity-0"}`}
                 muted
                 playsInline
                 preload="auto"
                 onTimeUpdate={(e) => {
                   if (e.currentTarget.currentTime >= OPEN_AT_SECONDS) finishOpening();
                 }}
+                onPlaying={(e) => revealVideo(e.currentTarget)}
                 onEnded={finishOpening}
                 onError={finishOpening}
                 aria-hidden
