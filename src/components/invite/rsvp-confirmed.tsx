@@ -22,7 +22,7 @@ export function RsvpConfirmed({
   floral: FloralVariant;
   burst?: ReactNode;
 }) {
-  const momentosUrl = process.env.NEXT_PUBLIC_MOMENTOS_URL;
+  const momentosUrl = process.env.MOMENTOS_URL;
 
   return (
     <div

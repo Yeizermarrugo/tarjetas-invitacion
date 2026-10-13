@@ -120,7 +120,7 @@ ADMIN_PASSWORD="..."
 SESSION_SECRET="..."
 
 # Opcional: URL de la app "Momentos" que se muestra al confirmar asistencia
-NEXT_PUBLIC_MOMENTOS_URL="https://..."
+MOMENTOS_URL="https://..."
 ```
 
 Para generar un `SESSION_SECRET`:
@@ -223,7 +223,7 @@ El proyecto está pensado para Vercel:
 
 1. Importa el repositorio en Vercel.
 2. Agrega la integración de Neon desde el Marketplace (crea `DATABASE_URL`).
-3. Configura `ADMIN_PASSWORD`, `SESSION_SECRET` y, si aplica, `NEXT_PUBLIC_MOMENTOS_URL`.
+3. Configura `ADMIN_PASSWORD`, `SESSION_SECRET` y, si aplica, `MOMENTOS_URL`.
 4. Despliega. Cada push a `main` genera un despliegue de producción.
 
 ---
