@@ -13,10 +13,11 @@ export function guestNames({ guestName1, guestName2, seats }: Guest) {
 // la arma WhatsApp solo con las etiquetas Open Graph de /i/[slug].
 export function inviteMessage(guest: Guest, url: string) {
   const { partner1, partner2 } = weddingConfig.couple;
-  const plural = Boolean(guest.guestName2) || guest.seats > 1;
+  // También plural si escribieron dos nombres en un solo campo ("Diana & Yeizer", "Ana y Luis").
+  const plural = Boolean(guest.guestName2) || guest.seats > 1 || /\s(&|y|e)\s/i.test(guest.guestName1);
 
   return [
-    `Querido/a ${guestNames(guest)} 🤍`,
+    `${plural ? "Queridos" : "Querido/a"} ${guestNames(guest)} 🤍`,
     "",
     `Con mucha alegría queremos contar${plural ? "les" : "te"} que ¡nos casamos! Y no imaginamos ese día sin ${plural ? "ustedes" : "ti"}.`,
     "",
