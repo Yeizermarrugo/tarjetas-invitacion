@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export type FloralVariant = "rosas" | "pampa";
+export type FloralVariant = "rosas" | "pampa" | "ramo";
 
 const FLORALS = {
   rosas: {
@@ -10,6 +10,10 @@ const FLORALS = {
   pampa: {
     left: { src: "/images/florals/pampa-izq.webp", width: 588, height: 1649 },
     right: { src: "/images/florals/pampa-der.webp", width: 558, height: 1647 },
+  },
+  ramo: {
+    left: { src: "/images/florals/ramo-izq.webp", width: 793, height: 1983 },
+    right: { src: "/images/florals/ramo-der.webp", width: 793, height: 1983 },
   },
 } as const;
 

@@ -4,6 +4,19 @@ Invitación digital de boda con enlace personalizado por invitado, confirmación
 
 **Boda:** 10 de diciembre de 2026 · Finca Villa Fe, Arjona (Bolívar), Colombia.
 
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/01-sobre.webp" width="250" alt="Sobre con sello de cera" /><br /><sub>Apertura con sello de cera</sub></td>
+    <td align="center"><img src="docs/screenshots/02-portada.webp" width="250" alt="Portada con foto de la pareja y reproductor" /><br /><sub>Portada y música</sub></td>
+    <td align="center"><img src="docs/screenshots/03-ceremonia.webp" width="250" alt="Fecha, lugar y horarios" /><br /><sub>Ceremonia y recepción</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/04-vestimenta.webp" width="250" alt="Código de vestimenta y paleta" /><br /><sub>Código de vestimenta</sub></td>
+    <td align="center"><img src="docs/screenshots/05-rsvp.webp" width="250" alt="Confirmación de asistencia" /><br /><sub>Confirmación de asistencia</sub></td>
+    <td align="center"><img src="docs/screenshots/06-regalo.webp" width="250" alt="Lluvia de sobres y aporte por Bre-B" /><br /><sub>Regalo</sub></td>
+  </tr>
+</table>
+
 ---
 
 ## Características

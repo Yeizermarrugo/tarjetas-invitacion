@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Mail } from "lucide-react";
-import { BotanicalCorner } from "./botanical-frame";
+import { Floral } from "./florals";
 import { CopyGiftKey } from "./copy-nequi-button";
 
 type Gift = {
@@ -16,8 +16,10 @@ type Gift = {
 export function GiftSection({ gift }: { gift: Gift }) {
   return (
     <div className="relative mx-auto max-w-sm px-2 text-center">
-      <BotanicalCorner className="-left-14 -top-14" />
-      <BotanicalCorner side="right" className="-right-14 -top-14" />
+      <div aria-hidden className="pointer-events-none absolute -top-36 bottom-0 left-1/2 w-screen max-w-[720px] -translate-x-1/2 overflow-hidden">
+        <Floral variant="ramo" side="left" className="-left-[11%] top-0 w-[28%] max-w-[210px] opacity-80" />
+        <Floral variant="ramo" side="right" className="-right-[11%] top-0 w-[28%] max-w-[210px] opacity-80" />
+      </div>
 
       <p className="text-[9px] uppercase tracking-[.28em] text-gold-deep">Detalles de regalo</p>
       <h2 className="mt-2 font-script text-5xl text-wood">El mejor regalo</h2>
