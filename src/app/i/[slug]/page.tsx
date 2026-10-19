@@ -127,7 +127,7 @@ export default async function InvitationPage({
           <CoupleNames partner1={couple.partner1} partner2={couple.partner2} displayDate={displayDate} />
         </ScrollReveal>
 
-        <div className="mx-auto flex w-full max-w-xl flex-col gap-16 px-7 pb-20 pt-14">
+        <div className="mx-auto flex w-full max-w-xl flex-col gap-16 px-7 pb-6 pt-14">
 
           <ScrollReveal><Countdown date={date} /></ScrollReveal>
           <ScrollReveal className="text-center">
@@ -157,10 +157,6 @@ export default async function InvitationPage({
             />
           </ScrollReveal>
 
-          <ScrollReveal id="vestimenta">
-            <DressCode dressCode={dressCode} />
-          </ScrollReveal>
-
           <ScrollReveal id="rsvp">
             <RsvpGate
               slug={invitation.slug}
@@ -170,6 +166,10 @@ export default async function InvitationPage({
               floral={floral}
               confirmed={invitation.rsvpStatus === "confirmed"}
             />
+          </ScrollReveal>
+
+          <ScrollReveal id="vestimenta">
+            <DressCode dressCode={dressCode} />
           </ScrollReveal>
 
           <ScrollReveal id="regalo" className="text-center">
