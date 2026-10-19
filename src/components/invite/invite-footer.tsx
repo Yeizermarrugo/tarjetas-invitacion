@@ -8,7 +8,7 @@ const LINKS = [
 
 export function InviteFooter({ partner1, partner2 }: { partner1: string; partner2: string }) {
   return (
-    <footer className="relative min-h-80 overflow-hidden px-6 pb-28 pt-16 text-center">
+    <footer className="relative min-h-80 overflow-hidden px-6 pb-28 pt-8 text-center">
       <BotanicalFooter />
       <p className="relative z-10 mt-4 font-script text-5xl text-wood">
         {partner1} &amp; {partner2}
