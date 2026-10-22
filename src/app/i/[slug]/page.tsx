@@ -140,6 +140,12 @@ export default async function InvitationPage({
                 “{invitation.message}”
               </p>
             )}
+            <div className="mx-auto mt-8 max-w-sm border-y border-gold/30 py-4">
+              <p className="text-[9px] uppercase tracking-[.24em] text-gold-deep">Celebración solo para adultos</p>
+              <p className="mt-2 text-balance text-sm leading-relaxed text-wood">
+                Con todo cariño, les contamos que <strong className="font-semibold">no se admiten niños</strong>.
+              </p>
+            </div>
           </ScrollReveal>
 
           <ScrollReveal id="ceremonia">
