@@ -68,6 +68,13 @@ function VanDetails({
             <dd className="mt-1 border-t border-wood/40 pt-1 text-center font-display text-sm italic text-wood">{formatTime12(departureTime)}</dd>
           </div>
         </div>
+        <div className="flex gap-3">
+          <Clock className="mt-0.5 h-5 w-5 shrink-0 text-gold-deep" strokeWidth={1.6} aria-hidden />
+          <div className="flex-1">
+            <dt className="text-xs uppercase tracking-[.12em] text-wood">Hora de regreso:</dt>
+            <dd className="mt-1 border-t border-wood/40 pt-1 text-center font-display text-sm italic text-wood">{formatTime12(returnTime)}</dd>
+          </div>
+        </div>
       </dl>
 
       <p className="mt-4 rounded-md bg-beige py-1.5 text-center font-display text-base font-semibold uppercase tracking-[.12em] text-wood">
@@ -81,7 +88,7 @@ function VanDetails({
       <div className="mt-3 flex items-center gap-3 rounded-lg bg-pearl/70 px-3 py-2">
         <Bus className="h-6 w-6 shrink-0 text-wood" strokeWidth={1.6} aria-hidden />
         <p className="text-center font-display text-sm italic leading-snug text-wood">
-          Al culminar el evento, la van saldrá nuevamente de la finca hacia la ciudad, alrededor de las {formatTime12(returnTime)}
+          Al culminar el evento, a las {formatTime12(returnTime)}, la van saldrá nuevamente de la finca hacia la ciudad.
         </p>
       </div>
     </div>

@@ -16,7 +16,7 @@ export const weddingConfig = {
   },
   reception: {
     time: "17:00",
-    endTime: "23:59",
+    endTime: "23:30",
     venue: "Finca Villa Fe",
     address: "Arjona, Bolívar",
     mapsUrl: "https://maps.app.goo.gl/3xKuPZE5XE68pcoYA",
@@ -26,7 +26,7 @@ export const weddingConfig = {
     // Valores por defecto si la invitación no tiene punto/hora propios (se editan en /admin).
     meetingPoint: "Por confirmar",
     departureTime: "Por confirmar",
-    returnTime: "23:00",
+    returnTime: "23:30",
   },
   dressCode: {
     style: "Formal · Elegante",
