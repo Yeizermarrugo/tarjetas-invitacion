@@ -45,7 +45,11 @@ export const weddingConfig = {
     digitalNote: "Si lo prefieres, también puedes hacerlo de forma digital:",
   },
   tracks: [
-    { url: "/audio/romantic-piano.mp3", title: "Canción veneciana · Felix Mendelssohn" },
+    // Alojado en S3 (bucket de Momentos), fuera del repo público.
+    {
+      url: "https://momentos-yd-media.s3.us-east-1.amazonaws.com/Goodness%20of%20God%20INSTRUMENTAL%20Violin%20-%20Piano.mp3",
+      title: "Goodness of God · Caleb's Violin",
+    },
   ] as { url: string; title: string }[],
   // Sin playlistId: el reproductor arma la lista con los youtubeId de abajo, en este orden.
   youtubePlaylistId: "",
