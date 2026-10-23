@@ -3,7 +3,6 @@
 import { submitRsvpAction } from "@/app/actions/rsvp";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { useActionState, useEffect, useState } from "react";
 
 const initialState = { error: "", success: false };
@@ -99,15 +98,6 @@ export function RsvpForm({
         </div>
       )}
       {decision === "confirmed" && seats === 1 && <input type="hidden" name="attendees" value="1" />}
-
-      {decision && (
-        <div>
-          <Label htmlFor="note" className="text-sm text-wood">
-            Nota (alergias, restricciones, mensaje) — opcional
-          </Label>
-          <Textarea id="note" name="note" className="mt-1" rows={3} />
-        </div>
-      )}
 
       {state.error && <p className="text-sm text-destructive">{state.error}</p>}
 
