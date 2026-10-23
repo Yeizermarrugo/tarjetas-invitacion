@@ -26,6 +26,6 @@ Sitio de invitación digital de boda (Yeizer & Diana, 2026-12-10). Next.js 16 Ap
 - `npm run db:push` — aplica schema a Neon. **DB compartida con app Momentos**: `drizzle.config.ts` tiene `tablesFilter: ["invitations"]`; para columnas nuevas preferir SQL aditivo manual.
 - `npm run db:studio` — Drizzle Studio
 
-## Estado (2026-10-13)
-Real: nombres, fecha, ceremonia/recepción (Finca Villa Fe, Arjona Bolívar), foto real de la pareja (`hero-couple-2026.jpg`), video de apertura, regalo Bre-B, playlist YouTube, `story`.
+## Estado (2026-10-22)
+Real: nombres, fecha, ceremonia/recepción (Finca Villa Fe, Arjona Bolívar), foto real de la pareja (`hero-couple-2026.jpg`), video de apertura, regalo Bre-B, playlist YouTube, `story`. Evento **solo adultos**: aviso "no se admiten niños" (negrita, entre líneas doradas) bajo el saludo en `src/app/i/[slug]/page.tsx`.
 Pendiente: confirmar `NEXT_PUBLIC_MOMENTOS_URL` en Vercel + redeploy. `ADMIN_PASSWORD`/`SESSION_SECRET` autogenerados (usuario no eligió password propio).
