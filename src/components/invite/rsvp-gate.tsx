@@ -7,7 +7,7 @@ import { RsvpConfirmed } from "./rsvp-confirmed";
 import { Floral, type FloralVariant } from "./florals";
 
 const linkClass =
-  "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-gold/40 bg-pearl/80 px-3 py-2 text-sm text-wood transition-colors hover:border-gold-deep hover:bg-white/60";
+  "flex min-h-11 items-center justify-center gap-2 rounded-lg border border-gold/40 bg-pearl px-3 py-2 text-sm text-wood shadow-sm transition-colors hover:border-gold-deep hover:bg-white";
 
 export function RsvpGate({
   slug,
@@ -36,7 +36,7 @@ export function RsvpGate({
 
   return (
     <div className="relative left-1/2 w-screen max-w-[720px] -translate-x-1/2 overflow-hidden px-6 pb-6 text-center font-display [font-variant-numeric:lining-nums]">
-      <Floral variant={floral} side="left" className="-left-3 bottom-0 w-[46%] max-w-[300px]" />
+      <Floral variant={floral} side="left" className="-left-3 bottom-0 w-[34%] max-w-[220px] opacity-90" />
 
       <div className="relative z-10 mx-auto max-w-md">
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-beige text-wood">
@@ -87,7 +87,7 @@ export function RsvpGate({
           </button>
         )}
 
-        <div className="ml-auto mt-3 grid w-[88%] grid-cols-2 gap-2.5">
+        <div className="mt-3 grid grid-cols-2 gap-2.5">
           <a href={mapsUrl} target="_blank" rel="noreferrer" className={`${linkClass} col-span-2`}>
             <MapPin className="h-4 w-4" strokeWidth={1.6} aria-hidden />
             Cómo llegar
