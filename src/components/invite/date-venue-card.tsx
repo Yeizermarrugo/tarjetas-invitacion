@@ -148,10 +148,10 @@ export function DateVenueCard({
           <div className="flex flex-col items-center">
             <span className="text-base tracking-[.1em] text-wood">{year}</span>
             <span className="font-display text-5xl font-semibold leading-none text-wood">{day}</span>
-            <span className="mt-1 text-sm uppercase tracking-[0.2em] text-wood">{month}</span>
+            {/* <span className="mt-1 text-sm uppercase tracking-[0.2em] text-wood">{month}</span> */}
           </div>
           <div className="flex flex-1 flex-col items-center gap-2">
-            <span className="text-sm uppercase tracking-[0.2em] text-wood">A las</span>
+            <span className="text-sm uppercase tracking-[0.2em] text-wood">{month}</span>
             <span className="h-px w-full bg-wood/40" />
           </div>
         </div>
