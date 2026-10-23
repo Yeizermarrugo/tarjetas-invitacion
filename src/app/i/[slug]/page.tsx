@@ -16,13 +16,13 @@ import { YouTubePlaylist } from "@/components/invite/youtube-playlist";
 import { Countdown } from "@/components/wedding/countdown";
 import { getDb } from "@/db";
 import { invitations } from "@/db/schema";
-import { formatDeadline, isRsvpClosed } from "@/lib/rsvp-deadline";
 import { guestNames } from "@/lib/invite-message";
+import { formatDeadline, isRsvpClosed } from "@/lib/rsvp-deadline";
 import { weddingConfig } from "@/lib/wedding-config";
-import { cache } from "react";
-import type { Metadata } from "next";
 import { eq } from "drizzle-orm";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -131,21 +131,21 @@ export default async function InvitationPage({
 
           <ScrollReveal><Countdown date={date} /></ScrollReveal>
           <ScrollReveal className="text-center">
-            <p className="mx-auto max-w-md text-balance text-base text-muted-foreground">
-              {/* {greeting(invitation.guestName1, invitation.guestName2, invitation.seats)}, */}
-              Nos encantaría celebrar este día junto a ti.
-            </p>
-            {invitation.message && (
-              <p className="mx-auto mt-4 max-w-md text-balance italic text-wood">
-                “{invitation.message}”
-              </p>
-            )}
-            <div className="mx-auto mt-8 max-w-sm border-y border-gold/30 py-4">
+            {/* <p className="mx-auto max-w-md text-balance text-base text-muted-foreground"> */}
+            {/* {greeting(invitation.guestName1, invitation.guestName2, invitation.seats)}, */}
+            {/* Nos encantaría celebrar este día junto a ti. */}
+            {/* </p> */}
+            <div className="mx-auto max-w-sm border-y border-gold/30 py-4">
               <p className="text-[9px] uppercase tracking-[.24em] text-gold-deep">Celebración solo para adultos</p>
               <p className="mt-2 text-balance text-sm leading-relaxed text-wood">
                 Con todo cariño, les contamos que <strong className="font-semibold">no se admiten niños</strong>.
               </p>
             </div>
+            {invitation.message && (
+              <p className="mx-auto mt-8 max-w-md text-balance italic text-wood">
+                “{invitation.message}”
+              </p>
+            )}
           </ScrollReveal>
 
           <ScrollReveal id="ceremonia">
