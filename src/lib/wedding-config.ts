@@ -21,7 +21,7 @@ export const weddingConfig = {
     address: "Arjona, Bolívar",
     mapsUrl: "https://maps.app.goo.gl/3xKuPZE5XE68pcoYA",
   },
-  rsvpDeadline: "2026-11-05",
+  rsvpDeadline: "2026-11-07",
   van: {
     // Valores por defecto si la invitación no tiene punto/hora propios (se editan en /admin).
     meetingPoint: "Por confirmar",
