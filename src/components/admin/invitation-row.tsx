@@ -9,6 +9,7 @@ import { EditInvitationDialog } from "./edit-invitation-dialog";
 import { initialsOf, colorFor } from "@/lib/avatar-color";
 import type { Invitation } from "@/db/schema";
 import { whatsappShareUrl } from "@/lib/invite-message";
+import { formatDeadline, isRsvpClosed } from "@/lib/rsvp-deadline";
 
 const statusLabel: Record<Invitation["rsvpStatus"], string> = {
   pending: "Pendiente",
@@ -64,6 +65,10 @@ export function InvitationRow({ invitation }: { invitation: Invitation }) {
             <span className="font-medium text-wood">{guestLabel}</span>
             <span className="text-xs text-muted-foreground">
               {invitation.transport === "van" ? "Vans" : "Vehículo propio"}
+            </span>
+            <span className="text-xs text-muted-foreground">
+              {isRsvpClosed(invitation.rsvpDeadline) ? "Cerró" : "Cierra"} {formatDeadline(invitation.rsvpDeadline)}
+              {!invitation.rsvpDeadline && " (general)"}
             </span>
           </div>
         </div>

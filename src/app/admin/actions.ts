@@ -12,6 +12,7 @@ import {
   SESSION_MAX_AGE,
 } from "@/lib/auth";
 import { generateSlug } from "@/lib/slug";
+import { validateDeadline } from "@/lib/rsvp-deadline";
 
 function readTransport(formData: FormData) {
   const transport = formData.get("transport") === "van" ? "van" : "own";
@@ -64,6 +65,9 @@ export async function createInvitationAction(
   if (seats !== 1 && seats !== 2) {
     return { error: "Los cupos deben ser 1 o 2." };
   }
+  const rsvpDeadline = String(formData.get("rsvpDeadline") ?? "").trim();
+  const deadlineError = validateDeadline(rsvpDeadline, { allowPast: false });
+  if (deadlineError) return { error: deadlineError };
 
   const db = getDb();
   let slug = generateSlug();
@@ -83,10 +87,11 @@ export async function createInvitationAction(
     guestName2,
     seats,
     message: message || null,
+    rsvpDeadline,
     ...readTransport(formData),
   });
 
-  return { error: "", slug, guest: { guestName1, guestName2, seats } };
+  return { error: "", slug, guest: { guestName1, guestName2, seats, rsvpDeadline } };
 }
 
 export async function deleteInvitationAction(id: number) {
@@ -108,6 +113,14 @@ export async function editInvitationAction(
   if (!guestName1) return { error: "El nombre del invitado es obligatorio." };
   if (seats !== 1 && seats !== 2) return { error: "Los cupos deben ser 1 o 2." };
 
+  // Vacío = conservar la fecha global (invitaciones antiguas). Se permite una fecha pasada para
+  // poder cerrar una invitación a mano.
+  const rsvpDeadlineRaw = String(formData.get("rsvpDeadline") ?? "").trim();
+  if (rsvpDeadlineRaw) {
+    const deadlineError = validateDeadline(rsvpDeadlineRaw, { allowPast: true });
+    if (deadlineError) return { error: deadlineError };
+  }
+
   const db = getDb();
   await db
     .update(invitations)
@@ -116,6 +129,7 @@ export async function editInvitationAction(
       guestName2: seats === 2 && guestName2Raw ? guestName2Raw : null,
       seats,
       message: message || null,
+      rsvpDeadline: rsvpDeadlineRaw || null,
       ...readTransport(formData),
     })
     .where(eq(invitations.id, id));

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { TransportFields } from "./transport-fields";
+import { DeadlineField } from "./deadline-field";
 import { whatsappShareUrl } from "@/lib/invite-message";
 import {
   Dialog,
@@ -19,7 +20,7 @@ import {
 const initialState: {
   error: string;
   slug?: string;
-  guest?: { guestName1: string; guestName2: string | null; seats: number };
+  guest?: { guestName1: string; guestName2: string | null; seats: number; rsvpDeadline: string };
 } = { error: "" };
 
 export function CreateInvitationDialog() {
@@ -128,6 +129,8 @@ export function CreateInvitationDialog() {
             )}
 
             <TransportFields idPrefix="create" />
+
+            <DeadlineField idPrefix="create" required />
 
             <div>
               <Label htmlFor="message">Mensaje personalizado (opcional)</Label>

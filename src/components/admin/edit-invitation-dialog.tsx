@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { TransportFields } from "./transport-fields";
+import { DeadlineField } from "./deadline-field";
 import {
   Dialog,
   DialogContent,
@@ -102,6 +103,14 @@ export function EditInvitationDialog({ invitation }: { invitation: Invitation })
             defaultTransport={invitation.transport}
             defaultMeetingPoint={invitation.vanMeetingPoint ?? ""}
             defaultDepartureTime={invitation.vanDepartureTime ?? ""}
+          />
+
+          <DeadlineField
+            idPrefix={`edit-${invitation.id}`}
+            defaultValue={invitation.rsvpDeadline ?? ""}
+            // Las que ya tienen fecha propia no pueden quedar sin ella; las antiguas pueden seguir vacías.
+            required={Boolean(invitation.rsvpDeadline)}
+            allowPast
           />
 
           <div>
