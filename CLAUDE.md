@@ -12,7 +12,7 @@ Sitio de invitación digital de boda (Yeizer & Diana, 2026-12-10). Next.js 16 Ap
 - `src/components/invite/` — piezas de la invitación. `rsvp-gate.tsx` es `"use client"` → todo lo que renderiza (ej. `rsvp-confirmed.tsx`) corre en cliente.
 - `src/components/wedding/` — legado de la landing vieja; solo `countdown.tsx` sigue en uso.
 - `src/components/invite/florals.tsx` — ramos laterales (`rosas`, `pampa`, `ramo`), imágenes izq/der en `public/images/florals/`. Patrón: capa `absolute left-1/2 w-screen max-w-[720px] -translate-x-1/2 overflow-hidden` para que sangren al borde de pantalla.
-- `src/db/schema.ts` — tabla `invitations` (slug, guestName1/2, seats, message, transport own|van, van meeting point/hora, rsvp status/attendees/note/respondedAt).
+- `src/db/schema.ts` — tabla `invitations` (slug, guestName1/2, seats, message, transport own|van, van meeting point/hora, rsvpDeadline, rsvp status/attendees/note/respondedAt). `rsvpDeadline` NULL = invitación antigua → usa `weddingConfig.rsvpDeadline`; las nuevas la exigen al crearse (`src/lib/rsvp-deadline.ts`).
 - `src/lib/wedding-config.ts` — toda la data de la boda (fecha, ceremonia/recepción, rsvpDeadline, van, dressCode, regalo Bre-B, tracks, playlist YouTube).
 - `src/lib/invite-message.ts` — texto de WhatsApp que acompaña el enlace.
 - `src/lib/auth.ts` — password única `ADMIN_PASSWORD`, cookie HMAC con `SESSION_SECRET` (sin cuentas, decisión explícita del usuario).
@@ -23,7 +23,7 @@ Sitio de invitación digital de boda (Yeizer & Diana, 2026-12-10). Next.js 16 Ap
 
 ## Comandos
 - `npm run dev` / `build` / `start` / `lint`
-- `npm run db:push` — aplica schema a Neon. **DB compartida con app Momentos**: `drizzle.config.ts` tiene `tablesFilter: ["invitations"]`; para columnas nuevas preferir SQL aditivo manual.
+- `npm run db:push` — aplica schema a Neon. **DB compartida con app Momentos**: `drizzle.config.ts` tiene `tablesFilter: ["invitations"]`; para columnas nuevas preferir SQL aditivo manual. `src/instrumentation.ts` aplica esas migraciones aditivas (`ADD COLUMN IF NOT EXISTS`) al arrancar el servidor en Vercel — así no hace falta entrar a Neon.
 - `npm run db:studio` — Drizzle Studio
 
 ## Estado (2026-10-22)
