@@ -1,6 +1,6 @@
 import { weddingConfig } from "./wedding-config";
 
-type WithDeadline = { rsvpDeadline?: string | null };
+type WithDeadline = { rsvpDeadline?: string | null; rsvpStatus?: string };
 
 // Fecha que aplica a una invitación: la propia o, si no tiene, la general.
 export function deadlineOf(invitation?: WithDeadline) {
@@ -12,7 +12,9 @@ function deadlineEnd(deadline: string) {
   return new Date(`${deadline}T23:59:59-05:00`);
 }
 
+// Una invitación confirmada (aunque sea por 1 de 2 cupos) nunca se cierra, sin importar su fecha.
 export function isRsvpClosed(invitation?: WithDeadline, now = new Date()) {
+  if (invitation?.rsvpStatus === "confirmed") return false;
   return now > deadlineEnd(deadlineOf(invitation));
 }
 

@@ -64,7 +64,8 @@ export function InvitationRow({ invitation }: { invitation: Invitation }) {
           <div className="flex flex-col">
             <span className="font-medium text-wood">{guestLabel}</span>
             <span className="text-xs text-muted-foreground">
-              {invitation.transport === "van" ? "Vans" : "Vehículo propio"} · hasta {formatDeadline(invitation)}
+              {invitation.transport === "van" ? "Vans" : "Vehículo propio"}
+              {invitation.rsvpStatus === "pending" && ` · hasta ${formatDeadline(invitation)}`}
             </span>
           </div>
         </div>
