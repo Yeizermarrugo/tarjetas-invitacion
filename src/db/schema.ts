@@ -1,4 +1,4 @@
-import { pgTable, serial, text, integer, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, integer, timestamp, pgEnum, date } from "drizzle-orm/pg-core";
 
 export const rsvpStatusEnum = pgEnum("rsvp_status", ["pending", "confirmed", "declined"]);
 export const transportEnum = pgEnum("transport", ["own", "van"]);
@@ -13,6 +13,8 @@ export const invitations = pgTable("invitations", {
   transport: transportEnum("transport").notNull().default("own"),
   vanMeetingPoint: text("van_meeting_point"),
   vanDepartureTime: text("van_departure_time"),
+  // Fecha límite propia (YYYY-MM-DD). Null = fecha general de weddingConfig.rsvpDeadline.
+  rsvpDeadline: date("rsvp_deadline", { mode: "string" }),
   rsvpStatus: rsvpStatusEnum("rsvp_status").notNull().default("pending"),
   rsvpAttendees: integer("rsvp_attendees"),
   rsvpNote: text("rsvp_note"),

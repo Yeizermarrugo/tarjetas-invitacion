@@ -105,7 +105,7 @@ export default async function InvitationPage({
   const { couple, date, displayDate, arrivalTime, ceremony, van, quote, dressCode, gift, tracks, youtubePlaylist, youtubePlaylistId, story } = weddingConfig;
   const floral = invitation.transport === "van" ? "pampa" : "rosas";
 
-  if (invitation.rsvpStatus === "pending" && isRsvpClosed()) {
+  if (invitation.rsvpStatus === "pending" && isRsvpClosed(invitation)) {
     return <RsvpClosed partner1={couple.partner1} partner2={couple.partner2} floral={floral} />;
   }
 
@@ -167,7 +167,7 @@ export default async function InvitationPage({
             <RsvpGate
               slug={invitation.slug}
               seats={invitation.seats}
-              deadline={formatDeadline()}
+              deadline={formatDeadline(invitation)}
               mapsUrl={ceremony.mapsUrl}
               floral={floral}
               confirmed={invitation.rsvpStatus === "confirmed"}

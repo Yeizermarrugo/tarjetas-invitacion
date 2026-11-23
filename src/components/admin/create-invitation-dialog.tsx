@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { TransportFields } from "./transport-fields";
 import { whatsappShareUrl } from "@/lib/invite-message";
+import { defaultNewDeadline } from "@/lib/rsvp-deadline";
+import { weddingConfig } from "@/lib/wedding-config";
 import {
   Dialog,
   DialogContent,
@@ -19,7 +21,7 @@ import {
 const initialState: {
   error: string;
   slug?: string;
-  guest?: { guestName1: string; guestName2: string | null; seats: number };
+  guest?: { guestName1: string; guestName2: string | null; seats: number; rsvpDeadline: string };
 } = { error: "" };
 
 export function CreateInvitationDialog() {
@@ -128,6 +130,21 @@ export function CreateInvitationDialog() {
             )}
 
             <TransportFields idPrefix="create" />
+
+            <div>
+              <Label htmlFor="rsvpDeadline">Confirmar hasta</Label>
+              <Input
+                id="rsvpDeadline"
+                name="rsvpDeadline"
+                type="date"
+                defaultValue={defaultNewDeadline()}
+                max={weddingConfig.date}
+                className="mt-1"
+              />
+              <p className="mt-1 text-xs text-muted-foreground">
+                Por defecto {weddingConfig.rsvpWindowDays} días desde hoy.
+              </p>
+            </div>
 
             <div>
               <Label htmlFor="message">Mensaje personalizado (opcional)</Label>

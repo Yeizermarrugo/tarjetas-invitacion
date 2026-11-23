@@ -1,7 +1,7 @@
 import { weddingConfig } from "./wedding-config";
 import { formatDeadline } from "./rsvp-deadline";
 
-type Guest = { guestName1: string; guestName2: string | null; seats: number };
+type Guest = { guestName1: string; guestName2: string | null; seats: number; rsvpDeadline?: string | null };
 
 export function guestNames({ guestName1, guestName2, seats }: Guest) {
   if (guestName2) return `${guestName1} y ${guestName2}`;
@@ -21,7 +21,7 @@ export function inviteMessage(guest: Guest, url: string) {
     "",
     `Con mucha alegría queremos contar${plural ? "les" : "te"} que ¡nos casamos! Y no imaginamos ese día sin ${plural ? "ustedes" : "ti"}.`,
     "",
-    `Preparamos esta invitación con mucho cariño. Ábrela para ver todos los detalles y, por favor, confírmanos tu asistencia antes del ${formatDeadline()}.`,
+    `Preparamos esta invitación con mucho cariño. Ábrela para ver todos los detalles y, por favor, confírmanos tu asistencia antes del ${formatDeadline(guest)}.`,
     "",
     `💌 ${url}`,
     "",
