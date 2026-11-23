@@ -20,10 +20,6 @@ export async function submitRsvpAction(
     return { error: "Solicitud inválida.", success: false };
   }
 
-  if (isRsvpClosed()) {
-    return { error: "El plazo para confirmar ya terminó.", success: false };
-  }
-
   const db = getDb();
   const invitation = await db.query.invitations.findFirst({
     where: eq(invitations.slug, slug),
@@ -31,6 +27,10 @@ export async function submitRsvpAction(
 
   if (!invitation) {
     return { error: "Invitación no encontrada.", success: false };
+  }
+
+  if (isRsvpClosed(invitation)) {
+    return { error: "El plazo para confirmar ya terminó.", success: false };
   }
 
   const finalAttendees =

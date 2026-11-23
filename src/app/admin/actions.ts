@@ -12,6 +12,7 @@ import {
   SESSION_MAX_AGE,
 } from "@/lib/auth";
 import { generateSlug } from "@/lib/slug";
+import { defaultNewDeadline, parseDeadlineInput } from "@/lib/rsvp-deadline";
 
 function readTransport(formData: FormData) {
   const transport = formData.get("transport") === "van" ? "van" : "own";
@@ -65,6 +66,12 @@ export async function createInvitationAction(
     return { error: "Los cupos deben ser 1 o 2." };
   }
 
+  const deadlineRaw = String(formData.get("rsvpDeadline") ?? "").trim();
+  const rsvpDeadline = deadlineRaw ? parseDeadlineInput(deadlineRaw) : defaultNewDeadline();
+  if (!rsvpDeadline) {
+    return { error: "Fecha límite inválida (no puede pasar el día de la boda)." };
+  }
+
   const db = getDb();
   let slug = generateSlug();
 
@@ -83,10 +90,11 @@ export async function createInvitationAction(
     guestName2,
     seats,
     message: message || null,
+    rsvpDeadline,
     ...readTransport(formData),
   });
 
-  return { error: "", slug, guest: { guestName1, guestName2, seats } };
+  return { error: "", slug, guest: { guestName1, guestName2, seats, rsvpDeadline } };
 }
 
 export async function deleteInvitationAction(id: number) {
@@ -108,6 +116,13 @@ export async function editInvitationAction(
   if (!guestName1) return { error: "El nombre del invitado es obligatorio." };
   if (seats !== 1 && seats !== 2) return { error: "Los cupos deben ser 1 o 2." };
 
+  // Vacío = usar la fecha general (invitaciones antiguas).
+  const deadlineRaw = String(formData.get("rsvpDeadline") ?? "").trim();
+  const rsvpDeadline = deadlineRaw ? parseDeadlineInput(deadlineRaw) : null;
+  if (deadlineRaw && !rsvpDeadline) {
+    return { error: "Fecha límite inválida (no puede pasar el día de la boda)." };
+  }
+
   const db = getDb();
   await db
     .update(invitations)
@@ -116,6 +131,7 @@ export async function editInvitationAction(
       guestName2: seats === 2 && guestName2Raw ? guestName2Raw : null,
       seats,
       message: message || null,
+      rsvpDeadline,
       ...readTransport(formData),
     })
     .where(eq(invitations.id, id));

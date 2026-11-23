@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import type { Invitation } from "@/db/schema";
+import { weddingConfig } from "@/lib/wedding-config";
 
 const initialState: { error: string; success?: boolean } = { error: "" };
 
@@ -103,6 +104,21 @@ export function EditInvitationDialog({ invitation }: { invitation: Invitation })
             defaultMeetingPoint={invitation.vanMeetingPoint ?? ""}
             defaultDepartureTime={invitation.vanDepartureTime ?? ""}
           />
+
+          <div>
+            <Label htmlFor={`edit-deadline-${invitation.id}`}>Confirmar hasta</Label>
+            <Input
+              id={`edit-deadline-${invitation.id}`}
+              name="rsvpDeadline"
+              type="date"
+              defaultValue={invitation.rsvpDeadline ?? ""}
+              max={weddingConfig.date}
+              className="mt-1"
+            />
+            <p className="mt-1 text-xs text-muted-foreground">
+              Vacío = fecha general ({weddingConfig.rsvpDeadline}).
+            </p>
+          </div>
 
           <div>
             <Label htmlFor={`edit-message-${invitation.id}`}>
