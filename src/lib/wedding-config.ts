@@ -6,9 +6,9 @@ export const weddingConfig = {
   date: "2026-12-10",
   displayDate: "10 de diciembre de 2026",
   story: "Elegimos caminar juntos y queremos celebrar el comienzo de este nuevo capítulo rodeados de las personas que hacen nuestra historia más bonita.",
-  arrivalTime: "15:30",
+  arrivalTime: "15:10",
   ceremony: {
-    time: "16:30",
+    time: "16:20",
     endTime: "18:00",
     venue: "Finca Villa Fe",
     address: "Arjona, Bolívar",
@@ -28,7 +28,7 @@ export const weddingConfig = {
   van: {
     // Valores por defecto si la invitación no tiene punto/hora propios (se editan en /admin).
     meetingPoint: "Por confirmar",
-    departureTime: "Por confirmar",
+    departureTime: "14:30",
     returnTime: "23:30",
   },
   dressCode: {
